@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Компании</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div class="conteiner mt-5">
+  <h3>Добавить компанию</h3>
+  <form action="/main" method="post">
+    <input type="text" name="name" placeholder="Введите название компании">
+    <button type="submit" class="btn btn-sucess">Добавить</button>
+  </form>
+</div>
+  <table style="text-align: center ">
+    <thead>
+      <tr>
+        <th>Name Company</th>
+        <th>Industry Indeed</th>
+        <th>Industry Yahoo</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr th:each="company : ${companies}">
+      <td>
+        <p th:text="${company.name}"></p>
+      </td>
+    <td>
+      <span th:each="indeed : ${company.industryIndeed}"><span th:text="${indeed.industryIndeedName}"/></span>
+    </td>
+      <td>
+        <span th:each="yahoo : ${company.industryYahoo}"><span th:text="${yahoo.industryYahooName}"/></span>
+      </td>
+      <td>
+
+        <form th:action="@{/delete/{id}(id=${company.getId()})}" method="post">
+          <button class="btn btn-warning" type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</body>
+</html>
